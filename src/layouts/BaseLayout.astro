@@ -1,5 +1,5 @@
 ---
-import { head, nav } from '../config/appConfig'
+import { head, nav, year } from '../config/appConfig'
 
 export interface Props {
   head: {
@@ -95,6 +95,10 @@ const robot =
     <main>
       <slot />
     </main>
-    <footer></footer>
+    <footer>
+      <div class="text-[10px]">
+        Design & Code by {head.author} © {year}
+      </div>
+    </footer>
   </body>
 </html>
