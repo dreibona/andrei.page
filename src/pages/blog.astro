@@ -1,11 +1,25 @@
 ---
+import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
+const collection = 'blog' // work' or 'blog'
+const allContents = await getCollection(collection)
+const nonDraftContents = allContents.filter((c) => !c.data.draft)
 const seo = {
   title: 'Andrei Bonamin - UI Designer - Blog'
 }
 ---
 
 <BaseLayout head={seo}>
-  <h2>Blog</h2>
+  <ul>
+    {
+      nonDraftContents.map((c) => (
+        <li>
+          <a class="hover:bg-slate-300" href={'/' + collection + '/' + c.slug}>
+            {c.data.contentTitle}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>

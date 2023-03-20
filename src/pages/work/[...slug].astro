@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const allContents = await getCollection('work') // 'work' or 'blog'
+  const nonDraftContents = allContents.filter((c) => !c.data.draft)
+  return nonDraftContents.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<BaseLayout head={entry.data}>
+  <Content />
+</BaseLayout>
