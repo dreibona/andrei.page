@@ -1,5 +1,5 @@
 ---
-import { head } from '../config/appConfig'
+import { head, links } from '../config/appConfig'
 
 export interface Props {
   head: {
@@ -17,6 +17,7 @@ export interface Props {
   }
 }
 
+const path = Astro.url.pathname
 const url = Astro.props.head.url || Astro.url
 const title = Astro.props.head.title || head.title
 const description = Astro.props.head.description || head.description
@@ -65,7 +66,32 @@ const robot =
     <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
-    <nav></nav>
+    <a
+      class={path === '/' ? 'bg-slate-300' : 'hover:bg-slate-300'}
+      aria-label="Home Page"
+      aria-current={path === '/' ? 'true' : 'false'}
+      href="/">
+      Home
+    </a>
+    <nav>
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a
+                class={
+                  path === link.href ? 'bg-slate-300' : 'hover:bg-slate-300'
+                }
+                aria-label={link.ariaLabel}
+                aria-current={path === link.href ? 'true' : 'false'}
+                href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
     <main>
       <slot />
     </main>
