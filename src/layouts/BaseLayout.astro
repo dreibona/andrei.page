@@ -1,4 +1,40 @@
 ---
+import { head } from '../config/appConfig'
+
+export interface Props {
+  head: {
+    url?: URL | string
+    title?: string
+    description?: string
+    author?: string
+    keywords?: string
+    image?: { url?: string; alt?: string }
+    locale?: string
+    type?: string
+    robot?: boolean
+    date?: string
+    year?: string
+  }
+}
+
+const url = Astro.props.head.url || Astro.url
+const title = Astro.props.head.title || head.title
+const description = Astro.props.head.description || head.description
+const author = Astro.props.head.author || head.author
+const keywords = Astro.props.head?.keywords || head.keywords
+const image = Astro.props.head.image?.url || head.image
+const locale = Astro.props.head.locale || head.locale
+const type = Astro.props.head.type || head.type
+const robot =
+  Astro.props.head.robot === true
+    ? 'noimageindex'
+    : Astro.props.head.robot === false
+    ? 'none, noimageindex'
+    : head.robot === true
+    ? 'noimageindex'
+    : head.robot === false
+    ? 'none, noimageindex'
+    : ''
 ---
 
 <html lang="en">
@@ -6,8 +42,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content={url} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:creator" content={author || ''} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    <meta name="robots" content={robot} />
+    <link rel="canonical" href={url} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <title>Home Page</title>
   </head>
   <body>
     <nav></nav>
