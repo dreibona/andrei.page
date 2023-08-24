@@ -6,11 +6,12 @@ import mdx from '@astrojs/mdx'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://andrei.page',
+  experimental: {
+    assets: true
+  },
   integrations: [
     tailwind({
-      config: {
-        applyBaseStyles: true
-      }
+      applyBaseStyles: true
     }),
     sitemap({
       changefreq: 'weekly',
