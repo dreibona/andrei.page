@@ -15,6 +15,7 @@ pnpm dev
 - `build`: Builds the source files into a `dist` directory.
 - `preview`: Preview your build locally.
 - `check`: Check your project for errors.
+- `sync`: Generate content collection types.
 - `astro`: All commands.
 
 ## License
