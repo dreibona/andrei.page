@@ -1,30 +1,21 @@
 ---
-import { head, links, year } from '../config/appConfig'
+import { head, navigation, year, date } from '../config/appConfig'
 
 export interface Props {
   head: {
-    url?: URL | string
     title?: string
     description?: string
     author?: string
     keywords?: string
-    image?: { url?: string; alt?: string }
-    locale?: string
     type?: string
     robot?: boolean
-    date?: string
-    year?: string
   }
 }
 
-const path = Astro.url.pathname
-const url = Astro.props.head.url || Astro.url
 const title = Astro.props.head.title || head.title
 const description = Astro.props.head.description || head.description
 const author = Astro.props.head.author || head.author
 const keywords = Astro.props.head?.keywords || head.keywords
-const image = Astro.props.head.image?.url || head.image
-const locale = Astro.props.head.locale || head.locale
 const type = Astro.props.head.type || head.type
 const robot =
   Astro.props.head.robot === true
@@ -36,6 +27,10 @@ const robot =
     : head.robot === false
     ? 'none, noimageindex'
     : ''
+const path = Astro.url.pathname
+const url = Astro.url
+const image = head.image
+const locale = head.locale
 ---
 
 <html lang="en">
@@ -63,11 +58,14 @@ const robot =
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <meta name="robots" content={robot} />
     <link rel="canonical" href={url} />
+    <link rel="icon" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
-  <body>
+  <body class="text-gainsboro-grey-900">
     <a
-      class={path === '/' ? 'bg-slate-300' : 'hover:bg-slate-300'}
+      class={path === '/'
+        ? 'bg-gainsboro-grey-300'
+        : 'hover:bg-gainsboro-grey-300'}
       aria-label="Home Page"
       aria-current={path === '/' ? 'true' : 'false'}
       href="/">
@@ -76,16 +74,18 @@ const robot =
     <nav>
       <ul>
         {
-          links.map((link) => (
+          navigation.map((nav) => (
             <li>
               <a
                 class={
-                  path === link.href ? 'bg-slate-300' : 'hover:bg-slate-300'
+                  path === nav.href
+                    ? 'bg-gainsboro-grey-300'
+                    : 'hover:bg-gainsboro-grey-300'
                 }
-                aria-label={link.ariaLabel}
-                aria-current={path === link.href ? 'true' : 'false'}
-                href={link.href}>
-                {link.label}
+                aria-label={nav.ariaLabel}
+                aria-current={path === nav.href ? 'true' : 'false'}
+                href={nav.href}>
+                {nav.label}
               </a>
             </li>
           ))
@@ -97,7 +97,7 @@ const robot =
     </main>
     <footer>
       <div class="text-[10px]">
-        Design & Code by {head.author} © {year}
+        Design & Code by {head.author} © {year} - Last update on {date}
       </div>
     </footer>
   </body>
