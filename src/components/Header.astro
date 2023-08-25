@@ -1,0 +1,38 @@
+---
+import { navigation } from '../config/appConfig'
+
+const path = Astro.url.pathname
+---
+
+<header>
+  <nav>
+    <a
+      class={path === '/'
+        ? 'bg-gainsboro-grey-300'
+        : 'hover:bg-gainsboro-grey-300'}
+      aria-label="Home Page"
+      aria-current={path === '/' ? 'true' : 'false'}
+      href="/">
+      Home
+    </a>
+    <ul>
+      {
+        navigation.map((nav) => (
+          <li>
+            <a
+              class={
+                path === nav.href
+                  ? 'bg-gainsboro-grey-300'
+                  : 'hover:bg-gainsboro-grey-300'
+              }
+              aria-label={nav.ariaLabel}
+              aria-current={path === nav.href ? 'true' : 'false'}
+              href={nav.href}>
+              {nav.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

@@ -1,104 +1,22 @@
 ---
-import { head, navigation, year, date } from '../config/appConfig'
+import Head from '../components/Head.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import type { Props as HeadProps } from '../components/Head.astro'
 
 export interface Props {
-  head: {
-    title?: string
-    description?: string
-    author?: string
-    keywords?: string
-    type?: string
-    robot?: boolean
-  }
+  head?: HeadProps
 }
-
-const title = Astro.props.head.title || head.title
-const description = Astro.props.head.description || head.description
-const author = Astro.props.head.author || head.author
-const keywords = Astro.props.head.keywords || head.keywords
-const type = Astro.props.head.type || head.type
-const robot =
-  Astro.props.head.robot === true
-    ? 'noimageindex'
-    : Astro.props.head.robot === false
-    ? 'none, noimageindex'
-    : head.robot === true
-    ? 'noimageindex'
-    : head.robot === false
-    ? 'none, noimageindex'
-    : ''
-const path = Astro.url.pathname
-const url = Astro.url
-const image = head.image
-const locale = head.locale
+const { head } = Astro.props
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
-    <meta name="author" content={author} />
-    <meta property="og:type" content={type} />
-    <meta property="og:locale" content={locale} />
-    <meta property="og:site_name" content={title} />
-    <meta property="og:title" content={title} />
-    <meta property="og:url" content={url} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:creator" content={author || ''} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
-    <meta name="robots" content={robot} />
-    <link rel="canonical" href={url} />
-    <link rel="icon" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-  </head>
+  <Head {...head} />
   <body class="text-gainsboro-grey-900">
-    <a
-      class={path === '/'
-        ? 'bg-gainsboro-grey-300'
-        : 'hover:bg-gainsboro-grey-300'}
-      aria-label="Home Page"
-      aria-current={path === '/' ? 'true' : 'false'}
-      href="/">
-      Home
-    </a>
-    <nav>
-      <ul>
-        {
-          navigation.map((nav) => (
-            <li>
-              <a
-                class={
-                  path === nav.href
-                    ? 'bg-gainsboro-grey-300'
-                    : 'hover:bg-gainsboro-grey-300'
-                }
-                aria-label={nav.ariaLabel}
-                aria-current={path === nav.href ? 'true' : 'false'}
-                href={nav.href}>
-                {nav.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <Header />
     <main>
       <slot />
     </main>
-    <footer>
-      <div class="text-[10px]">
-        Design & Code by {head.author} © {year} - Last update on {date}
-      </div>
-    </footer>
+    <Footer />
   </body>
 </html>
