@@ -19,12 +19,12 @@ const robot =
   Astro.props.robot === true
     ? 'noimageindex'
     : Astro.props.robot === false
-    ? 'none, noimageindex'
-    : head.robot === true
-    ? 'noimageindex'
-    : head.robot === false
-    ? 'none, noimageindex'
-    : ''
+      ? 'none, noimageindex'
+      : head.robot === true
+        ? 'noimageindex'
+        : head.robot === false
+          ? 'none, noimageindex'
+          : ''
 const url = Astro.url
 const image = head.image
 const locale = head.locale

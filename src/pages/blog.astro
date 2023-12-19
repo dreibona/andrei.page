@@ -3,7 +3,7 @@ import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
-const collection = 'blog' // work' or 'blog'
+const collection = 'blog' // 'work' or 'blog'
 const allContents = await getCollection(collection)
 const nonDraftContents = allContents.filter((c) => !c.data.draft)
 const seo = {

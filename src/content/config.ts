@@ -16,7 +16,7 @@ const collection = defineCollection({
       robot: z.boolean(),
       draft: z.boolean(),
       tags: z.array(z.string()),
-      keywords: z.array(z.string())
+      keywords: z.string()
     })
 })
 

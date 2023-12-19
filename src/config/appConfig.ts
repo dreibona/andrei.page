@@ -21,6 +21,6 @@ export const head = {
 export const navigation = [
   { label: 'Work', href: '/work/', ariaLabel: 'Work Page' },
   { label: 'Blog', href: '/blog/', ariaLabel: 'Blog Page' },
-  { label: 'About', href: '/about/', ariaLabel: 'About me Page' },
-  { label: 'Contact', href: '/contact/', ariaLabel: 'Contact me Page' }
+  { label: 'About', href: '/about/', ariaLabel: 'About Page' },
+  { label: 'Contact', href: '/contact/', ariaLabel: 'Contact Page' }
 ]
